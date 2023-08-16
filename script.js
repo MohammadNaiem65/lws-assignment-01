@@ -51,7 +51,7 @@ function reset() {
 const initialScore = [
 	{
 		id: 1,
-		score: 120,
+		score: 0,
 	},
 ];
 
