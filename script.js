@@ -1,6 +1,6 @@
 // ! Get DOM elements
 const matchContainer = document.getElementsByClassName('all-matches')[0];
-const anotherMatchBtn = document.getElementsByClassName('btn lws-addMatch')[0];
+const addMatchBtn = document.getElementsByClassName('btn lws-addMatch')[0];
 const resetBtn = document.getElementsByClassName('lws-reset')[0];
 
 // Action identifiers
@@ -28,6 +28,12 @@ function decrement(data) {
 			id: data.id,
 			value: data.value,
 		},
+	};
+}
+
+function insertMatch() {
+	return {
+		type: INSERT,
 	};
 }
 
@@ -77,10 +83,7 @@ const matchReducer = (state = initialScore, action) => {
 		// ! In case of insert new match
 		case INSERT:
 			const newId =
-				initialScore.reduce(
-					(maxId, currId) => Math.max(maxId, currId),
-					0
-				) + 1;
+				state.reduce((maxId, curr) => Math.max(maxId, curr.id), 0) + 1;
 			return [
 				...state,
 				{
@@ -140,8 +143,8 @@ function handleDecrement(e) {
 	store.dispatch(decrement(fieldData));
 }
 
-anotherMatchBtn.addEventListener('click', () => {
-	console.log('object');
+addMatchBtn.addEventListener('click', () => {
+	store.dispatch(insertMatch());
 });
 
 resetBtn.addEventListener('click', () => {
