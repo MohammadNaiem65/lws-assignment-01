@@ -41,6 +41,12 @@ function deleteMatch(id) {
 	return { type: DELETE, payload: { id } };
 }
 
+function reset() {
+	return {
+		type: RESET,
+	};
+}
+
 // initial value
 const initialScore = [
 	{
@@ -104,6 +110,7 @@ const matchReducer = (state = initialScore, action) => {
 			const newState = state.map((match) => {
 				return {
 					...match,
+					score: 0,
 				};
 			});
 			return newState;
@@ -148,7 +155,7 @@ addMatchBtn.addEventListener('click', () => {
 });
 
 resetBtn.addEventListener('click', () => {
-	console.log('clicked');
+	store.dispatch(reset());
 });
 
 function matchHtml(match) {
